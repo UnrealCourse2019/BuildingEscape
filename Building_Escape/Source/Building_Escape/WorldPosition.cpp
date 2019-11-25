@@ -20,7 +20,9 @@ void UWorldPosition::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	UE_LOG(LogTemp, Display, TEXT("Just a log, nothing to see!"));
+	UE_LOG(LogTemp, Warning, TEXT("This is a Warning!"));
+	UE_LOG(LogTemp, Error, TEXT("ERROR!"))
 	
 }
 
