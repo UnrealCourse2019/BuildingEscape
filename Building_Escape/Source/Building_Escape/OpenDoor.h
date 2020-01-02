@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BUILDING_ESCAPE_API UOpenDoor : public UActorComponent
@@ -31,4 +31,7 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float TargetYaw = 90.f;	
+
+	UPROPERTY(EditAnywhere)
+	ATriggerVolume* PressurePlate;
 };
