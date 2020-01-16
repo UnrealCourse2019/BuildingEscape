@@ -46,4 +46,9 @@ private:
 	float DoorCloseDelay = 2.f;
 
 	float DoorLastOpenTime;
+
+	UPROPERTY(EditAnywhere)
+	float DoorOpenSpeed = .5f;
+	UPROPERTY(EditAnywhere)
+	float DoorCloseSpeed = .5f;
 };
