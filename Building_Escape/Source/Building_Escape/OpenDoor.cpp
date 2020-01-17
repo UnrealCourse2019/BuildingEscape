@@ -20,7 +20,7 @@ void UOpenDoor::BeginPlay()
 	Super::BeginPlay();
 	InitialYaw = GetOwner()->GetActorRotation().Yaw;
 	CurrentYaw = InitialYaw;
-	TargetYaw += InitialYaw; //TargetYaw = TargetYaw + InitialYaw;
+	OpenAngle += InitialYaw; //OpenAngle = OpenAngle + InitialYaw;
 
 	if(!PressurePlate)
 	{
@@ -53,7 +53,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 void UOpenDoor::OpenDoor(float DeltaTime)
 {
-	CurrentYaw = FMath::Lerp(CurrentYaw, TargetYaw, DeltaTime * .8f);
+	CurrentYaw = FMath::Lerp(CurrentYaw, OpenAngle, DeltaTime * DoorOpenSpeed);
 	FRotator DoorRotation = GetOwner()->GetActorRotation();
 	DoorRotation.Yaw = CurrentYaw;
 	GetOwner()->SetActorRotation(DoorRotation);	
@@ -61,7 +61,7 @@ void UOpenDoor::OpenDoor(float DeltaTime)
 
 void UOpenDoor::CloseDoor(float DeltaTime)
 {
-	CurrentYaw = FMath::Lerp(CurrentYaw, InitialYaw, DeltaTime * 2.f);
+	CurrentYaw = FMath::Lerp(CurrentYaw, InitialYaw, DeltaTime * DoorCloseSpeed);
 	FRotator DoorRotation = GetOwner()->GetActorRotation();
 	DoorRotation.Yaw = CurrentYaw;
 	GetOwner()->SetActorRotation(DoorRotation);	
