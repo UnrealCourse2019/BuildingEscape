@@ -1,9 +1,9 @@
 // Copyright Michael Bridges 2019
 
-#include "Engine/World.h"
-#include "GameFramework/PlayerController.h"
 #include "OpenDoor.h"
+#include "Engine/World.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/PlayerController.h"
 
 // Sets default values for this component's properties
 UOpenDoor::UOpenDoor()
@@ -12,7 +12,6 @@ UOpenDoor::UOpenDoor()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 }
-
 
 // Called when the game starts
 void UOpenDoor::BeginPlay()
