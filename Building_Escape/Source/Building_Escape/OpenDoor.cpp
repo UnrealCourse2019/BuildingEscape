@@ -29,6 +29,13 @@ void UOpenDoor::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s has the open door component on it, but no pressureplate set!"), *GetOwner()->GetName());	
 	}
+
+	// Why isn't this working?
+	if (!AudioComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s missing Audio Component!"), *GetOwner()->GetName());
+	}
+
 }
 
 // Called every frame
@@ -59,14 +66,10 @@ void UOpenDoor::OpenDoor(float DeltaTime)
 	GetOwner()->SetActorRotation(DoorRotation);	
 
 	SoundPlayedClosed = false;
-	if (!SoundComponentAttached)
-	{
-		UE_LOG(LogTemp, Error, TEXT("%s missing Audio Component!"), *GetOwner()->GetName());
-		return;
-	}
-	if(!SoundPlayedOpen) 
+	if (!AudioComponent) {return;}
+	if (!SoundPlayedOpen) 
 	{	
-		GetOwner()->FindComponentByClass<UAudioComponent>()->Play();
+		AudioComponent->Play();
 		SoundPlayedOpen = true;
 	}	
 }
@@ -79,14 +82,10 @@ void UOpenDoor::CloseDoor(float DeltaTime)
 	GetOwner()->SetActorRotation(DoorRotation);
 
 	SoundPlayedOpen = false;
-	if (!SoundComponentAttached)
-	{
-		UE_LOG(LogTemp, Error, TEXT("%s missing Audio Component!"), *GetOwner()->GetName());
-		return;
-	}
-	if(!SoundPlayedClosed) 
+	if (!AudioComponent) {return;}
+	if (!SoundPlayedClosed) 
 	{		 
-		GetOwner()->FindComponentByClass<UAudioComponent>()->Play();
+		AudioComponent->Play();
 		SoundPlayedClosed = true;
 	}
 }
@@ -105,7 +104,7 @@ float UOpenDoor::TotalMassOfActors() const
 	for(AActor* Actor : OverlappingActors)
 	{
 		TotalMass += Actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
-		UE_LOG(LogTemp, Warning, TEXT("%s is on the pressureplate!"), *Actor->GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("%s is on the pressureplate!"), *Actor->GetName());
 	}
 
 	return TotalMass;
