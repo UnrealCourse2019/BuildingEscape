@@ -59,11 +59,16 @@ void UOpenDoor::OpenDoor(float DeltaTime)
 	GetOwner()->SetActorRotation(DoorRotation);	
 
 	SoundPlayedClosed = false;
-	if(!SoundPlayedOpen) 
+	if (!SoundComponentAttached)
 	{
+		UE_LOG(LogTemp, Error, TEXT("%s missing Audio Component!"), *GetOwner()->GetName());
+		return;
+	}
+	if(!SoundPlayedOpen) 
+	{	
 		GetOwner()->FindComponentByClass<UAudioComponent>()->Play();
 		SoundPlayedOpen = true;
-	}
+	}	
 }
 
 void UOpenDoor::CloseDoor(float DeltaTime)
@@ -74,8 +79,13 @@ void UOpenDoor::CloseDoor(float DeltaTime)
 	GetOwner()->SetActorRotation(DoorRotation);
 
 	SoundPlayedOpen = false;
-	if(!SoundPlayedClosed) 
+	if (!SoundComponentAttached)
 	{
+		UE_LOG(LogTemp, Error, TEXT("%s missing Audio Component!"), *GetOwner()->GetName());
+		return;
+	}
+	if(!SoundPlayedClosed) 
+	{		 
 		GetOwner()->FindComponentByClass<UAudioComponent>()->Play();
 		SoundPlayedClosed = true;
 	}
@@ -100,3 +110,4 @@ float UOpenDoor::TotalMassOfActors() const
 
 	return TotalMass;
 }
+

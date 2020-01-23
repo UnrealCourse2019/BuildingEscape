@@ -26,6 +26,7 @@ public:
 	void OpenDoor(float DeltaTime);
 	void CloseDoor(float DeltaTime);
 	float TotalMassOfActors() const;
+	UAudioComponent* SoundComponentAttached = nullptr;
 
 private:
 
