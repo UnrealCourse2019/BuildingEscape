@@ -1,6 +1,7 @@
 // Copyright Michael Bridges 2019
 
 #include "OpenDoor.h"
+#include "Components/AudioComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
@@ -56,6 +57,13 @@ void UOpenDoor::OpenDoor(float DeltaTime)
 	FRotator DoorRotation = GetOwner()->GetActorRotation();
 	DoorRotation.Yaw = CurrentYaw;
 	GetOwner()->SetActorRotation(DoorRotation);	
+
+	SoundPlayedClosed = false;
+	if(!SoundPlayedOpen) 
+	{
+		GetOwner()->FindComponentByClass<UAudioComponent>()->Play();
+		SoundPlayedOpen = true;
+	}
 }
 
 void UOpenDoor::CloseDoor(float DeltaTime)
@@ -63,7 +71,14 @@ void UOpenDoor::CloseDoor(float DeltaTime)
 	CurrentYaw = FMath::Lerp(CurrentYaw, InitialYaw, DeltaTime * DoorCloseSpeed);
 	FRotator DoorRotation = GetOwner()->GetActorRotation();
 	DoorRotation.Yaw = CurrentYaw;
-	GetOwner()->SetActorRotation(DoorRotation);	
+	GetOwner()->SetActorRotation(DoorRotation);
+
+	SoundPlayedOpen = false;
+	if(!SoundPlayedClosed) 
+	{
+		GetOwner()->FindComponentByClass<UAudioComponent>()->Play();
+		SoundPlayedClosed = true;
+	}
 }
 
 float UOpenDoor::TotalMassOfActors() const

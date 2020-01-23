@@ -32,6 +32,9 @@ private:
 	float InitialYaw;
 	float CurrentYaw;
 
+	bool SoundPlayedOpen = false;
+	bool SoundPlayedClosed = true;
+
 	UPROPERTY(EditAnywhere)
 	float MassToOpenDoors = 50.f;
 
